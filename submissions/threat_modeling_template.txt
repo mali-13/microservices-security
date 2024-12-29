@@ -1,0 +1,55 @@
+Docker Threat Modeling
+Given Docker's system components and the STRIDE framework, identify five potential threats that may arise.
+
+1. Tampering with image - Docker Client
+An attacker tries to change the image that will be deployed. She'll try to add a vulnerable package that is hard to spot.
+Later, she'll gain control to the running app and try to benefit from the  strong position. In the STRIDE model, this would
+fit in the Tempering category: Modifying a system for malicious intent affecting integrity
+
+2. Persuading to use a seemly useful but harmful library - Docker Registry
+An attacker deploys a seemly useful image to Docker Registry and developers start to use it as a dependency in their app.
+At a later point in time, the attacker will try to gain control of the infrastructure of the companies that are using the
+image. In the STRIDE model, this would fit in the Tempering category: Modifying or adding software for malicious intent
+
+3. Spoofing secrets - Docker Client
+Secrets from the docker client to the docker deamon or registry could be spoofed. These could lead to gaining control
+to privileged user. The attacker will later be able to edit the images or intervene in the docker pipeline to establish
+a strong control position. In the STRIDE model, this would fin in the Spoofing category: Listen for un-encrypted traffic
+and try to get hold of secret information.
+
+
+4. Denial of Service - Docker Client
+High traffic from the client to the deamon could cause it to crash. This is DoS attack where a server is overwhelmed
+by traffic and cannot handle legit traffic by the users.
+
+5. Information Disclosure - Docker Client
+Configuration files can contain hardcoded and un-encrypted secrets. The attacker uses these to gain control of the system.
+This falls under Information Disclosure - Getting hold of sensitive information from a system.
+
+
+Kubernetes Threat Modeling
+Given Kubernetes' system components and the STRIDE framework, identify five potential threats that may arise.
+
+1. Spoofing - Kube API
+The attacker gets hold sensitive information and is able to authenticate with the kube api. In the STRIDE model, this
+would fin in the Spoofing category: Listen for un-encrypted traffic and try to get hold of secret information.
+
+2. Denial of Service - Kubelets
+An attacker brings the entire kube setup down or makes it slow. This is done overwhelming the cluster with traffic and
+denying legit users access to app.
+
+3. Tempering - Kube API
+Exploiting insecure Kubelet API configurations to modify pod specifications or inject malicious containers.In the STRIDE
+model, this would fit in the Tempering category: Modifying or adding software for malicious intent
+
+4. Repudiation: Kubernetes natively doesn't allow certificate revocation, which may lead to repudiation if a
+certificate cannot be revoked when necessary.(taken from the course). STRIDE :act of denying doing something, such as
+denying the download of data from a database. It affects non-repudiation.
+
+5. Spoofing
+Kubernetes ships with insecure defaults, for example, all pods have CAP_NET_RAW permissions. This allows all pods to
+open raw sockets and inject malicious packets into the Kubernetes container network, which may lead to spoofing.(taken form the course)
+
+Docker-bench Run Results and Analysis
+From the failed findings, select and document 3 findings from the Docker-bench results that you want to harden based on
+the 5 attack surface areas you identified in Step 1. At least 1 of the 3 hardened findings should be different from the ones mentioned in the exercise (i.e. 5.10, 5.14, and 5.22).
