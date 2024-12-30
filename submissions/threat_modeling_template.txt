@@ -17,7 +17,6 @@ to privileged user. The attacker will later be able to edit the images or interv
 a strong control position. In the STRIDE model, this would fin in the Spoofing category: Listen for un-encrypted traffic
 and try to get hold of secret information.
 
-
 4. Denial of Service - Docker Client
 High traffic from the client to the deamon could cause it to crash. This is DoS attack where a server is overwhelmed
 by traffic and cannot handle legit traffic by the users.
@@ -53,3 +52,17 @@ open raw sockets and inject malicious packets into the Kubernetes container netw
 Docker-bench Run Results and Analysis
 From the failed findings, select and document 3 findings from the Docker-bench results that you want to harden based on
 the 5 attack surface areas you identified in Step 1. At least 1 of the 3 hardened findings should be different from the ones mentioned in the exercise (i.e. 5.10, 5.14, and 5.22).
+
+ - 4.3 Ensure that unnecessary packages are not installed in the container
+ Containers should have as small a footprint as possible, and should not contain
+ unnecessary software packages which could increase their attack surface.
+
+- 5.12 Ensure that the container's root filesystem is mounted as read only
+  (Scored)
+ The container's root filesystem should be treated as a 'golden image' by using Docker run's
+ --read-only option. This prevents any writes to the container's root filesystem at
+ container runtime and enforces the principle of immutable infrastructure.
+
+ - 4.1 Ensure that a user for the container has been created (Scored)
+ Containers should run as a non-root user. It is good practice to run the container as a non-root user, where possible.
+ This can be done either via the USER directive in the Dockerfile or through gosu or similar where used as part of the CMD or ENTRYPOINT directives
