@@ -65,4 +65,13 @@ the 5 attack surface areas you identified in Step 1. At least 1 of the 3 hardene
 
  - 4.1 Ensure that a user for the container has been created (Scored)
  Containers should run as a non-root user. It is good practice to run the container as a non-root user, where possible.
- This can be done either via the USER directive in the Dockerfile or through gosu or similar where used as part of the CMD or ENTRYPOINT directives
+ This can be done either via the USER directive in the Dockerfile or through gosu or similar where used as
+ part of the CMD or ENTRYPOINT directives
+
+ 3.1 Ensure that the docker.service file ownership is set to root:root
+ (Scored)
+ You should verify that the docker.service file ownership and group ownership are
+ correctly set to root.
+ The docker.service file contains sensitive parameters that may alter the behavior of the
+ Docker daemon. It should therefore be individually and group owned by the root user in
+ order to ensure that it is not modified or corrupted by a less privileged user.
