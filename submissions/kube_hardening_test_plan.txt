@@ -1,0 +1,25 @@
+What changes will be introduced?
+
+The production kube cluster will be hardened based on the official RKE guide. The following kube components will be affected:
+ - kube api
+ - ectd
+ - kube controller
+ - kubelet
+
+The kube-bench tool will be used to assess the current state and list the failed checks.
+
+How will you test the changes?
+
+Kubebench tool will be used before and after the hardening to make sure all CIS checks pass. Tests including manual and
+regression one are run.
+
+How will you ensure the changes don't negatively affect your cluster?
+
+1. Kube-bench tool will be run against the STAGING cluster, which is a similar setup to the production one.
+2. The hardening will be done based on the official CIS recommendations.
+3. Kube-bench tool will be run again to check if all check PASS
+4. Tests are run including manual and regression ones to make sure the cluster is available, reachable and healthy
+5. The prod cluster is backed up so a roll-back is possible
+6. Steps 1-4 are run against the prod env
+7. Rollback in case of any errors
+
