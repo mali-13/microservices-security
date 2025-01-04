@@ -1,0 +1,30 @@
+1. Incident commander name:
+DevOps and SecOps Team
+
+2. Executive Summary of what happened:
+
+Attacker was able to get hold of the infrastructure and plant crypto mining application leading to performance degrading
+and increased infrastructure costs. Additionally, they introduced images with a compromised and tempered bill of materials
+making detection hard.
+
+3. Summary of what was affected:
+The kubernetes cluster including the main node. Additionally, the image registry contained tempered images.
+
+4. Summmry of the impact:
+ - 20% infrastructure costs increase
+ - Increased cost on detecting and fixing the issue
+ - User experienced degraded performance of the app
+
+5. Summary of the remediation steps:
+ - detect issue going through falco logs
+ - run static detection tools: grype and trivy
+ - locate the issue and plan for the fix
+ - teardown intruder crypto mining pods in the cluster
+ - detect the tempered image amd teardown pods using it
+ - run tools and tests again to check if the issue is fixed
+ - take care not to disrupt the prod environment by performing a rollout while being prepared for a rollback
+
+6. Summary of lessons learned:
+ - kube cluster needs to be hardened further
+ - we need to be cautious and ensure that images that we use are authentic and come from trusted authorities
+ - communication needs always to secure
